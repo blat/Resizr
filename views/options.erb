@@ -1,0 +1,18 @@
+<form action="<%= @url_next %>">
+    <p>
+        <label for="width">Width: <span>(px)</span></label>
+        <input type="text" name="width" id="width" value="<%= @width %>" class="text" />
+    </p>
+    <p>
+        <label for="height">Height: <span>(px)</span></label>
+        <input type="text" name="height" id="height" value="<%= @height %>" class="text" />
+    </p>
+    <p>
+        <input type="checkbox" name="resize" id="resize" <% if @resize then %>checked="checked"<% end %> class="checkbox" />
+        <label for="resize" class="checkbox">Adjust image size?</label>
+    </p>
+    <p>
+        <a href="<%= @url_previous %>">Previous</a>
+        <input type="submit" value="Next" class="submit" />
+    </p>
+</form>

@@ -1,0 +1,135 @@
+* { margin: 0; padding: 0; }
+
+body {
+    color: #111;
+    background: #e8e8e8;
+    font-family: arial, sans-serif;
+}
+a { color: #111; }
+
+#wrapper {
+    width: 640px;
+    margin: 30px auto;
+}
+
+#header h1 {
+    text-align: center;
+    font-family: 'Cabin Sketch', arial, sans-serif;
+    font-size: 84px;
+}
+#header a {
+    text-decoration: none;
+}
+#header h1 span { color: #9c0; }
+
+#footer {
+    margin-top: 30px;
+    text-align: right;
+    font-size: 11px;
+    color: #bababa;
+}
+#footer a { color: #bababa; }
+
+#steps {
+    border-width: 2px 0;
+    border-color: #111;
+    border-style: dashed;
+    text-align: center;
+    margin-bottom: 30px;
+}
+#steps li {
+    display: inline-block;
+    padding: 8px;
+    color: #d8d8d8;
+    font-weight: bold;
+    margin-right: 10px;
+}
+#steps li.current {
+    color: #111;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #444;
+    clear: left;
+}
+label.radio {
+    font-weight: normal;
+}
+label span { font-weight: normal; }
+
+input {
+    margin-bottom: 30px;
+    display: block;
+}
+
+input.text {
+    border: 1px solid #666;
+    width: 400px;
+    background: #f9f9f9;
+    padding: 2px;
+}
+input.text:focus {
+    border: 1px solid #000;
+    background: #fff;
+}
+input.text:hover {
+    background: #fff;
+}
+
+form a,
+input.submit {
+    background: #9c0;
+    border: none;
+    -webkit-border-radius: 8px;
+    padding: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-bottom: 0;
+    display: inline-block;
+    font-size: 13px;
+    float: left;
+}
+form a {
+    text-decoration: none;
+    background: #666;
+    color: #fff;
+    clear: both;
+    margin-right: 10px;
+}
+
+.checkbox,
+.radio {
+    float: left;
+    clear: none;
+    margin-right: 10px;
+}
+
+.error {
+    background: #970000;
+    font-weight: bold;
+    -webkit-border-radius: 8px;
+    padding: 8px;
+    margin-bottom: 30px;
+    color: #fff;
+}
+
+#container {
+    position: relative;
+    margin-bottom: 30px;
+}
+
+#layer {
+    position: absolute;
+    cursor: move;
+    z-index: 10;
+    background: #9c0;
+    opacity: 0.5;
+}
+
+.clearfix {
+    clear: both;
+}
+

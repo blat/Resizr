@@ -1,0 +1,54 @@
+<div id="container" style="width: <%= @width_image %>px; height: <%= @height_image %>px;">
+    <img src="<%= @url_image %>" />
+    <div id="layer" style="width: <%= @width %>px; height: <%= @height %>px;"></div>
+</div>
+
+<form action="<%= @url_next %>">
+    <input type="hidden" name="x" id="x" />
+    <input type="hidden" name="y" id="y" />
+    <input type="hidden" name="width" value="<%= @width %>" />
+    <input type="hidden" name="height" value="<%= @height %>" />
+    <input type="hidden" name="crop" value="<%= true %>" />
+    <input type="hidden" name="resize" value="<%= @resize %>" />
+    <p>
+        <a href="<%= @url_previous %>">Previous</a>
+        <input type="submit" value="Download" class="submit" />
+    </p>
+</form>
+
+<script type="text/javascript">
+    var width;
+    var height;
+    var width_image;
+    var height_image;
+
+    resizr_init = function() {
+        width = parseInt($('#container').css('width'));
+        height = parseInt($('#container').css('height'));
+        width_image = parseInt($('#layer').css('width'));
+        height_image = parseInt($('#layer').css('height'));
+        $('#layer').draggable().bind('drag', resizr_drag);
+        var x = (width > width_image) ? (width - width_image) / 2 : 0;
+        var y = (height > height_image) ? (height - height_image) / 2 : 0;
+        resizr_update(x, y)
+    }
+
+    resizr_drag = function(event, ui) {
+        if (ui.position.top < 0) ui.position.top = 0;
+        if (ui.position.left + width_image > width) ui.position.left = width - width_image;
+        if (ui.position.left < 0) ui.position.left = 0;
+        if (ui.position.top + height_image > height) ui.position.top = height - height_image;
+        resizr_update(ui.position.left, ui.position.top);
+    }
+
+    resizr_update = function(x, y) {
+        $('#layer').css('top', y);
+        $('#y').val(y);
+        $('#layer').css('left', x);
+        $('#x').val(x);
+    }
+
+    jQuery(document).ready(function($) {
+        resizr_init();
+    });
+</script>

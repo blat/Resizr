@@ -1,0 +1,42 @@
+<form action="/upload" method="post" enctype="multipart/form-data">
+    <p>
+        <label>Select a file or an URL: </label>
+        <input type="radio" id="type-file" name="type" value="file" <% if @type == 'file' then %>checked="checked"<% end %> class="radio" />
+        <label for="type-file" class="radio">File</label>
+        <input type="radio" id="type-url" name="type" value="url" <% if @type == 'url' then %>checked="checked"<% end %> class="radio" />
+        <label for="type-url" class="radio">URL</label>
+    </p>
+    <p id="input-file">
+        <label for="file" id="label-file">File:</label>
+        <input type="file" name="file" id="file" />
+    </p>
+    <p id="input-url">
+        <label for="url" class="text" id="label-url">URL:</label>
+        <input type="text" name="url" id="url" value="<%= @url %>" class="text" />
+    </p>
+    <p>
+        <input type="submit" value="Next" class="submit" />
+    </p>
+</form>
+
+<script type="text/javascript">
+    upload_type_update = function() {
+        if ($('#type-file') && $('#type-file').attr('checked')) {
+            $('#input-url').css('display', 'none');
+            $('#input-file').css('display', 'block');
+        } else if ($('#type-url') && $('#type-url').attr('checked')) {
+            $('#input-url').css('display', 'block');
+            $('#input-file').css('display', 'none');
+        }
+    }
+
+    upload_type_init = function() {
+        upload_type_update();
+        $('#type-file').change(upload_type_update);
+        $('#type-url').change(upload_type_update);
+    }
+
+    jQuery(document).ready(function($) {
+        upload_type_init();
+    });
+</script>
