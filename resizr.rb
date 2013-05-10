@@ -3,7 +3,7 @@ require 'sinatra'
 require './models/image'
 
 set :type,   'file' # file or url
-set :width,  640
+set :width,  630
 set :height, 250
 set :resize, true
 
