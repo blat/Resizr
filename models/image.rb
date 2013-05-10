@@ -158,7 +158,7 @@ class Image
 
     # Save the image on the filesystem
     def _save
-        @image.write @path
+        @image.write(@path){self.density="72x72"}
     end
 
     # Get the path for the resized image
