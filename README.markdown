@@ -10,22 +10,19 @@ Demo
 * [resizr.blizzart.net](http://resizr.blizzart.net/)
 
 
-Dependances
------------------
-
-* sinatra
-* rmagick
-* fileutils
-* open-uri
-
-
 Setup
 -----------------
 
-1. Install ruby and all dependancies (see above)
+1. Install bundler:
 
-2. Launch application:
+        gem install bundler
+
+2. Install all dependencies:
+
+        bundle install
+
+3. Launch application:
 
         ruby resizr.rb
 
-3. Go to [http://localhost:4567](http://localhost:4567)
+4. Go to [http://localhost:4567](http://localhost:4567)
