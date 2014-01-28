@@ -10,10 +10,10 @@
     <input type="hidden" name="height" value="<%= @height %>" />
     <input type="hidden" name="crop" value="<%= true %>" />
     <input type="hidden" name="resize" value="<%= @resize %>" />
+    <p class="next">
+        <a class="button" href="<%= @url_previous %>"><i class='fa fa-chevron-left'></i> Previous</a>
+        <button type="submit">Download <i class='fa fa-download'></i></button>
     <p>
-        <a href="<%= @url_previous %>">Previous</a>
-        <input type="submit" value="Download" class="submit" />
-    </p>
 </form>
 
 <script type="text/javascript">
