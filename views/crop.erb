@@ -1,6 +1,7 @@
 <div id="container" style="width: <%= @width_image %>px; height: <%= @height_image %>px;">
     <img src="<%= @url_image %>" />
-    <div id="layer" style="width: <%= @width %>px; height: <%= @height %>px;"></div>
+    <div id="layer-out"></div>
+    <div id="layer-in" style="width: <%= @width %>px; height: <%= @height %>px; background-image: url(<%= @url_image %>);"></div>
 </div>
 
 <form action="<%= @url_next %>">
@@ -25,9 +26,9 @@
     resizr_init = function() {
         width = parseInt($('#container').css('width'));
         height = parseInt($('#container').css('height'));
-        width_image = parseInt($('#layer').css('width'));
-        height_image = parseInt($('#layer').css('height'));
-        $('#layer').draggable().bind('drag', resizr_drag);
+        width_image = parseInt($('#layer-in').css('width'));
+        height_image = parseInt($('#layer-in').css('height'));
+        $('#layer-in').draggable().bind('drag', resizr_drag);
         var x = (width > width_image) ? (width - width_image) / 2 : 0;
         var y = (height > height_image) ? (height - height_image) / 2 : 0;
         resizr_update(x, y)
@@ -42,10 +43,11 @@
     }
 
     resizr_update = function(x, y) {
-        $('#layer').css('top', y);
+        $('#layer-in').css('top', y);
         $('#y').val(y);
-        $('#layer').css('left', x);
+        $('#layer-in').css('left', x);
         $('#x').val(x);
+        $('#layer-in').css('background-position', -x + ' ' + -y);
     }
 
     jQuery(document).ready(function($) {

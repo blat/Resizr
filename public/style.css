@@ -118,10 +118,18 @@ button:hover {
     border: 1px solid #ccc;
 }
 
-#layer {
+#layer-out {
+    z-index: 5;
+    background: #eee;
+    opacity: 0.9;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+}
+
+#layer-in {
     position: absolute;
     cursor: move;
     z-index: 10;
-    background: #ccc;
-    opacity: 0.5;
 }
