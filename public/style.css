@@ -58,7 +58,9 @@ button {
     cursor: pointer;
     background: white;
     font-weight: bold;
-    font-size: 1em;
+    font-size: 20px;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    display: inline-block;
 }
 
 .button:hover,
