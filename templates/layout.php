@@ -12,13 +12,13 @@
                 <h1><a href="/">Resiz<span>r</span></a></h1>
             </div>
             <div id="main">
-                <% if not @error.nil? then %><p class="error">Error: <%= @error %>!</p><% end %>
+                <?php if (!empty($error)): ?><p class="error">Error: <?= $error ?>!</p><?php endif ?>
                 <ol id="steps">
-                    <li <%= if @step >= 1 then 'class="current"' end %>>Upload</li>
-                    <li <%= if @step >= 2 then 'class="current"' end %>>Options</li>
-                    <li <%= if @step == 3 then 'class="current"' end %>>Download</li>
+                    <li <?php if ($step >= 1): ?>class="current"<?php endif ?>>Upload</li>
+                    <li <?php if ($step >= 2): ?>class="current"<?php endif ?>>Options</li>
+                    <li <?php if ($step == 3): ?>class="current"<?php endif ?>>Download</li>
                 </ol>
-                <%= yield %>
+                <?= $this->section('content') ?>
             </div>
             <div id="footer">
                 <a href="http://github.com/blat/resizr">Resizr</a> is tool built to help the <a href="http://www.desinvolt.fr">D&eacute;sinvolt</a> team to easily resize images.
