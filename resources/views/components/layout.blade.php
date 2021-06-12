@@ -12,13 +12,13 @@
                 <h1><a href="/">Resiz<span>r</span></a></h1>
             </div>
             <div id="main">
-                <?php if (!empty($error)): ?><p class="error">Error: <?= $error ?>!</p><?php endif ?>
+                @if (isset($error))<p class="error">Error: {{ $error }}!</p>@endif
                 <ol id="steps">
-                    <li <?php if ($step >= 1): ?>class="current"<?php endif ?>>Upload</li>
-                    <li <?php if ($step >= 2): ?>class="current"<?php endif ?>>Options</li>
-                    <li <?php if ($step == 3): ?>class="current"<?php endif ?>>Download</li>
+                    <li @if ($step >= '1') class="current" @endif >Upload</li>
+                    <li @if ($step >= '2') class="current" @endif >Options</li>
+                    <li @if ($step == '3') class="current" @endif >Download</li>
                 </ol>
-                <?= $this->section('content') ?>
+                {{ $slot }}
             </div>
             <div id="footer">
                 <a href="http://github.com/blat/resizr">Resizr</a> is tool built to help the <a href="http://www.desinvolt.fr">D&eacute;sinvolt</a> team to easily resize and crop images.
@@ -29,3 +29,4 @@
         <script type="text/javascript" src="/app.js"></script>
     </body>
 </html>
+

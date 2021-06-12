@@ -7,14 +7,12 @@ define('WIDTH', 630);
 define('HEIGHT', 250);
 define('RESIZE', true);
 
-$app = new Phencil\App([
-    'templates' => __DIR__ . '/../templates',
-]);
+$app = new Laravel\Lumen\Application(dirname(__DIR__));
 
 // Home page
 // Show upload form
-$app->get('/', function() {
-    return $this->render('upload', [
+$app->router->get('/', function() {
+    return view('upload', [
         'step' => 1,
         'type' => TYPE,
     ]);
@@ -22,20 +20,20 @@ $app->get('/', function() {
 
 // Upload action
 // Try to fetch and load the image
-$app->post('/upload', function() {
+$app->router->post('/upload', function() {
     try {
         // upload/download image from file/url
-        $type = $this->getParam('type');
-        if ($type == 'url' && ($url = $this->getParam('url'))) {
+        $type = request()->input('type');
+        if ($type == 'url' && ($url = request()->input('url'))) {
             $image = App\Image::download($url);
-        } else if ($type == 'file' && ($file = $this->getFile('file'))) {
+        } else if ($type == 'file' && ($file = request()->file('file'))) {
             $image = App\Image::upload($file);
         } else {
             throw new Exception("You have to select a file or an URL");
         }
     } catch (Exception $e) {
         // if an error occured, show error message and go back to upload page
-        return $this->render('upload', [
+        return view('upload', [
             'error' => $e->getMessage(),
             'step'  => 1,
             'type'  => $type,
@@ -44,28 +42,28 @@ $app->post('/upload', function() {
     }
     // if it's ok, go to next step
     $nextUrl = sprintf('/options/%s?width=%d&height=%d&resize=%d', $image->filename(), WIDTH, HEIGHT, RESIZE);
-    $this->redirect($nextUrl);
+    return redirect($nextUrl);
 });
 
 // Options page
 // Show option form
-$app->get('/options/{filename}', function($filename) {
-    return $this->render('options', [
-        'height'       => $this->getParam('height'),
-        'resize'       => $this->getParam('resize'),
+$app->router->get('/options/{filename}', function($filename) {
+    return view('options', [
+        'height'       => request()->input('height'),
+        'resize'       => request()->input('resize'),
         'step'         => 2,
         'urlNext'      => sprintf("/crop/%s", $filename),
         'urlPrevious'  => "/",
-        'width'        => $this->getParam('width'),
+        'width'        => request()->input('width'),
     ]);
 });
 
 // Final page
 // Show crop interface
-$app->get('/crop/{filename}', function($filename) {
-    $height = $this->getParam('height');
-    $resize = (bool)$this->getParam('resize');
-    $width  = $this->getParam('width');
+$app->router->get('/crop/{filename}', function($filename) {
+    $height = request()->input('height');
+    $resize = (bool)request()->input('resize');
+    $width  = request()->input('width');
     $image  = new App\Image($filename);
     if ($resize) {
         $widthImage  = $image->widthResized($width, $height);
@@ -74,7 +72,7 @@ $app->get('/crop/{filename}', function($filename) {
         $heightImage = $image->height();
         $widthImage  = $image->width();
     }
-    return $this->render('crop', [
+    return view('crop', [
         'height'       => $height,
         'heightImage'  => $heightImage,
         'resize'       => $resize,
@@ -89,13 +87,13 @@ $app->get('/crop/{filename}', function($filename) {
 
 // Download action
 // Get resized/cropped image
-$app->get('/download/{filename}', function ($filename) {
-    $crop   = (bool)$this->getParam('crop');
-    $height = $this->getParam('height');
-    $resize = (bool)$this->getParam('resize');
-    $width  = $this->getParam('width');
-    $x      = (int)$this->getParam('x');
-    $y      = (int)$this->getParam('y');
+$app->router->get('/download/{filename}', function ($filename) {
+    $crop   = (bool)request()->input('crop');
+    $height = request()->input('height');
+    $resize = (bool)request()->input('resize');
+    $width  = request()->input('width');
+    $x      = (int)request()->input('x');
+    $y      = (int)request()->input('y');
     $image  = new App\Image($filename);
     if ($resize) {
         $image->resize($width, $height);
@@ -103,7 +101,7 @@ $app->get('/download/{filename}', function ($filename) {
     if ($crop) {
         $image->crop($x, $y, $width, $height);
     }
-    $this->sendFile($image->path(), $filename);
+    return response()->download($image->path(), $filename);
 });
 
 $app->run();

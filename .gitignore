@@ -1,3 +1,4 @@
 composer.lock
+storage/
 tmp/
 vendor/
